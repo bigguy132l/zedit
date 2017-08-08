@@ -118,6 +118,16 @@ export default function(ngapp, xelib) {
             return nodes;
         };
 
+        $scope.updateNodeCount = function(node, diff) {
+            let p = node.parent;
+            if (!p) {
+                $scope.node_count += diff;
+                return;
+            }
+            p.node_count += diff;
+            $scope.updateNodeCount(p, diff);
+        };
+
         $scope.expandNode = function(node) {
             let start = Date.now();
             node.expanded = true;
@@ -125,8 +135,11 @@ export default function(ngapp, xelib) {
             node.children.forEach(function(child) {
                 child.parent = node;
             });
+            let children_length = node.children.length;
+            node.node_count = 1 + node.children.length;
+            $scope.updateNodeCount(node, children_length);
             console.log(`Built ${node.children_count} nodes in ${Date.now() - start}ms`);
-            if (!node.children.length) {
+            if (!children_length) {
                 node.children_count = 0;
                 $scope.collapseNode(node);
             }
@@ -149,7 +162,9 @@ export default function(ngapp, xelib) {
             if (node.expanded) delete node.expanded;
             if (node.children) {
                 clearSelectedChildren(node);
+                $scope.updateNodeCount(node, 0 - node.children.length);
                 mainTreeViewFactory.releaseChildren(node);
+                delete node.node_count;
                 delete node.children;
             }
         };
