@@ -104,9 +104,7 @@ export default function(ngapp, xelib) {
                 if (valueA > valueB) return 1;
                 return 0;
             });
-            nodes.forEach(function(node, index) {
-                node.index = index;
-            });
+            nodes.forEach((node, index) => node.index = index);
             if ($scope.sort.reverse) nodes.reverse();
         };
 
@@ -132,9 +130,7 @@ export default function(ngapp, xelib) {
             let start = Date.now();
             node.expanded = true;
             node.children = $scope.buildNodes(node.handle, node.depth);
-            node.children.forEach(function(child) {
-                child.parent = node;
-            });
+            node.children.forEach((child) => child.parent = node);
             let children_length = node.children.length;
             node.node_count = 1 + node.children.length;
             $scope.updateNodeCount(node, children_length);
