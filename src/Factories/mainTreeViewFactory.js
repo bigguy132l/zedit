@@ -140,7 +140,7 @@ export default function(ngapp, xelib) {
                 }
                 if (child.expanded) clearSelectedChildren(child);
             });
-            if (prevNode.parent === node) {
+            if (prevNode && prevNode.parent === node) {
                 prevNode = undefined;
             }
         };
