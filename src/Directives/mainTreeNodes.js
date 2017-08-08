@@ -129,7 +129,7 @@ export default function(ngapp) {
             return rows.length;
         };
         self.getScrollProgress = function() {
-            return this.options.scroll_top / (rows.length * this.options.item_height) * 100 || 0;
+            return this.scroll_elem.scrollTop / (rows.length * this.options.item_height) * 100 || 0;
         };
 
         var add = function(where, _new_rows) {
@@ -189,8 +189,12 @@ export default function(ngapp) {
         },
         // get current cluster number
         getClusterNum: function () {
-            this.options.scroll_top = this.scroll_elem.scrollTop;
-            return Math.floor(this.options.scroll_top / (this.options.cluster_height - this.options.block_height)) || 0;
+            let scrollOffset = this.scroll_elem.scrollTop,
+                contentOffset = this.content_elem.offsetTop;
+            if (scrollOffset < contentOffset + this.options.cluster_height ||
+                scrollOffset > contentOffset + parentNode.node_count * this.options.item_height)
+                return -1;
+            return Math.floor((this.options.scroll_top - this.options.offset_top) / (this.options.cluster_height - this.options.block_height)) || 0;
         },
         // generate empty row if no data provided
         generateEmptyRow: function() {
