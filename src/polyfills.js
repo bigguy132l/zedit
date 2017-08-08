@@ -167,6 +167,14 @@ Array.prototype.forEachNested = function(callback, nestingKey) {
     this.forEachDesc(nestedCallback);
 };
 
+Array.prototype.sum = function(key) {
+    if (key) {
+        return this.reduce((sum, item) => { return sum + item[key] }, 0);
+    } else {
+        return this.reduce((sum, item) => { return sum + item }, 0);
+    }
+};
+
 Array.prototype.trimFalsy = function() {
     var n;
     for (n = this.length - 1; n > -1; n--) {
