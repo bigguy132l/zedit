@@ -10,6 +10,7 @@ import xelibService from './Services/xelibService.js';
 import profileService from './Services/profileService.js';
 import formUtils from './Services/formUtils.js';
 import layoutService from './Services/layoutService.js';
+import virtualNodeService from './Services/virtualNodeService.js';
 import viewFactory from './Factories/viewFactory.js';
 import mainTreeViewFactory from './Factories/mainTreeViewFactory.js';
 import recordTreeViewFactory from './Factories/recordTreeViewFactory.js';
@@ -19,6 +20,7 @@ import profilesModal from './Directives/profilesModal.js';
 import loadOrderModal from './Directives/loadOrderModal.js';
 import pane from './Directives/pane.js';
 import mainTreeNode from './Directives/mainTreeNode.js';
+import mainTreeNodes from './Directives/mainTreeNodes.js';
 import splitBar from './Directives/splitBar.js';
 import settingsModal from './Directives/settingsModal.js';
 import hexFilter from './Filters/hexFilter.js';
@@ -59,6 +61,7 @@ profileService(ngapp, xelib, fileHelpers);
 formUtils(ngapp);
 settingsService(ngapp, fileHelpers);
 layoutService(ngapp, fileHelpers);
+virtualNodeService(ngapp);
 
 // FACTORIES
 viewFactory(ngapp);
@@ -78,6 +81,7 @@ settingsModal(ngapp, fileHelpers);
 pane(ngapp);
 splitBar(ngapp);
 mainTreeNode(ngapp);
+mainTreeNodes(ngapp);
 
 // VIEWS
 baseView(ngapp, remote);
